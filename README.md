@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+JasstejTrace.exe — Developer + Cybersecurity Portfolio
+======================================================
 
-## Getting Started
+An immersive cyberpunk portfolio for Jasstej Singh Marwaha. Built with Next.js 14 (App Router) + TypeScript, Tailwind CSS v4, Framer Motion, GSAP/Three.js, and shadcn/ui.
 
-First, run the development server:
+Features
+- Boot sequence with typed terminal lines
+- Neon cyberpunk theme with scanlines, CRT flicker, glassmorphism
+- Interactive background (React Three Fiber point field)
+- Terminal overlay (Ctrl+K) with commands: about, skills, projects, achievements, blog, contact, trace, theme
+- Sections: Hero, About, Skills, Projects (modal typed logs), Achievements, Blog/Logs, Contact
+- Hidden route: /trace (update panel)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Tech Stack
+- Next.js 14 + TypeScript
+- Tailwind CSS v4
+- Framer Motion, react-typed
+- React Three Fiber + Drei + Three.js
+- shadcn/ui components
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Getting Started
+1. Install dependencies
+	```bash
+	npm install
+	```
+2. Run the dev server
+	```bash
+	npm run dev
+	```
+3. Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Hidden Update Panel (/trace)
+- Navigate to /trace to open the hidden update panel.
+- Click Unlock and enter the access key. Default: `jasstej`.
+- Optional: set NEXT_PUBLIC_TRACE_KEY in your environment to change the key.
+- The panel lets you:
+	- Add/remove achievements with image URLs, issuers, verify links, and notes.
+	- Update social links (GitHub, LinkedIn, Instagram, etc.).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Storage Notes
+- Content updates are saved to localStorage on your device under key `jasstejtrace.content.v1`.
+- To reset to defaults, use the Reset button in the panel or clear localStorage for this site.
 
-## Learn More
+Keyboard Shortcuts
+- Ctrl+K: Open terminal overlay
 
-To learn more about Next.js, take a look at the following resources:
+Project Structure
+- app/: Next.js app router pages
+- components/: Reusable UI, sections, background, terminal
+- public/: Static assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Customization
+- Edit theme colors and effects in app/globals.css
+- Update skills, projects, and achievements in their respective components
+- Replace links and social handles in Contact section
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deployment
+- Vercel recommended: connect repo and deploy
+- Or build locally
+  ```bash
+  npm run build
+  npm start
+  ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+License
+This project is provided as-is for personal portfolio use.
