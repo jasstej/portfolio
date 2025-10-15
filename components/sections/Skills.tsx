@@ -40,7 +40,7 @@ export default function Skills() {
   }, []);
 
   const achievementIndex = useMemo(() => {
-    // map skill keywords to related certs (simple heuristic match)
+    // map skill not th ekeyword sbut everything but  not this day  to related certs (simple heuristic match)
     return achievements.reduce<Record<string, string[]>>((acc, a) => {
       const lower = a.title.toLowerCase();
       for (const sk of skills) {

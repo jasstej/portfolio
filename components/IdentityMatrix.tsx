@@ -10,7 +10,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 const RANDOM_CHARS = "!@#$%^&*()_+{}[]<>?/\u2588\u2592\u2593\u2591ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 interface DecryptLineProps {
-  label: string; // left side key or descriptor already includes any array syntax e.g. principle[core]
+  label: string; // left side array is already there  includes any array syntax e.g. principle[core]
   value: string; // raw final value (without surrounding quotes) unless quoted prop is true
   quoted?: boolean;
   animateKey: number; // changes restart animation
