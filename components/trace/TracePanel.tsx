@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { loadContent, saveContent } from "@/lib/storage";
 import { Achievement, Content, defaultContent } from "@/lib/content";
 import { Button } from "@/components/ui/button";
+import { useNotify } from "@/components/ui/notifications";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 export default function TracePanel() {
   const [authorized, setAuthorized] = useState(false);
   const [state, setState] = useState<Content>(defaultContent);
+  const notify = useNotify();
 
   useEffect(() => {
     const onUpdate = () => setState(loadContent());
@@ -49,7 +51,10 @@ export default function TracePanel() {
     setState((s) => ({ ...s, achievements: [a, ...s.achievements] }));
   };
 
-  const save = () => saveContent(state);
+  const save = () => {
+    saveContent(state);
+    notify.push({ message: "state persisted → local storage", tone: "success" });
+  };
 
   if (!authorized) {
     return (
@@ -72,8 +77,17 @@ export default function TracePanel() {
       <div className="flex items-center justify-between">
         <h1 className="font-display text-3xl">Hidden Update Panel</h1>
         <div className="flex gap-2">
-          <Button variant="secondary" onClick={() => setState(loadContent())}>Reset</Button>
-          <Button onClick={save}>Save</Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setState(loadContent());
+              notify.push({ message: "state reloaded ↺", tone: "info" });
+            }}
+            className="hover:brightness-125 active:scale-95"
+          >
+            Reset
+          </Button>
+          <Button onClick={save} className="hover:brightness-125 active:scale-95">Save</Button>
         </div>
       </div>
 

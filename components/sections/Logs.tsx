@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useSound } from "@/components/sound/SoundProvider";
+import IdentityMatrix from "@/components/IdentityMatrix";
 
 function randomHex(n = 16) {
   const bytes = new Uint8Array(n);
@@ -40,13 +41,16 @@ export default function Logs() {
           </div>
           <div className="shrink-0 text-cyan-300">latency: {latency}ms</div>
           <div className="shrink-0 text-yellow-300">uptime: {uptimeDays} days</div>
-          <button
-            onClick={() => sound.toggle()}
-            className="shrink-0 px-2 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-white/80"
-            title={sound.enabled ? "sound: on" : "sound: off"}
-          >
-            {sound.enabled ? "🔊 sound: on" : "🔈 sound: off"}
-          </button>
+          <div className="shrink-0 flex items-center gap-2">
+            <button
+              onClick={() => sound.toggle()}
+              className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-white/80"
+              title={sound.enabled ? "sound: on" : "sound: off"}
+            >
+              {sound.enabled ? "🔊 sound: on" : "🔈 sound: off"}
+            </button>
+            <IdentityMatrix />
+          </div>
         </div>
       </div>
     </footer>

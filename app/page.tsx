@@ -9,9 +9,11 @@ import Projects from "@/components/sections/Projects";
 import Achievements from "@/components/sections/Achievements";
 import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
-import NetworkMap from "@/components/sections/NetworkMap";
+import NeuralTraceTerminal from "@/components/sections/NeuralTraceTerminal";
+import DigitalCore from "@/components/sections/DigitalCore";
+import OperationLogs from "@/components/sections/OperationLogs";
+import CyberManifesto from "@/components/sections/CyberManifesto";
 import Logs from "@/components/sections/Logs";
-import IdentityMatrix from "@/components/IdentityMatrix";
 import Signature from "@/components/Signature";
 import { useEffect, useState } from "react";
 import { loadContent } from "@/lib/storage";
@@ -23,8 +25,8 @@ export default function Home() {
   useEffect(() => {
     const onUpdate = () => setLinks(loadContent().links);
     setLinks(loadContent().links);
-    window.addEventListener("content:updated", onUpdate as any);
-    return () => window.removeEventListener("content:updated", onUpdate as any);
+    window.addEventListener("content:updated", onUpdate as EventListener);
+    return () => window.removeEventListener("content:updated", onUpdate as EventListener);
   }, []);
   return (
     <main className="relative min-h-screen">
@@ -51,16 +53,18 @@ export default function Home() {
           </button>
         </div>
         <Hero />
-        <About />
+  <About />
+  <NeuralTraceTerminal />
+  <DigitalCore />
         <Skills />
-        <Projects />
-        <Achievements />
-        <NetworkMap />
+  <Projects />
+  <Achievements />
+  <CyberManifesto />
+  <OperationLogs />
         <Blog />
         <Contact />
       </div>
-      <TerminalOverlay />
-      <IdentityMatrix />
+  <TerminalOverlay />
       <Logs />
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-24">
         {/* Signature footer block */}

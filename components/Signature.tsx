@@ -1,8 +1,9 @@
 "use client";
-// Client-safe Signature: uses NEXT_PUBLIC env if available, else Date().
+// Hydration-safe Signature: use static env snapshot; avoid Date() in render.
 export default function Signature() {
-  // We can't execute git here at runtime; fall back to env or date.
-  const commitDate = process.env.NEXT_PUBLIC_LAST_COMMIT_DATE || new Date().toUTCString();
+  // In dev, NEXT_PUBLIC_LAST_COMMIT_DATE may not be defined (prebuild runs only for production build).
+  // Use a stable placeholder instead of Date() to avoid hydration mismatches.
+  const commitDate = process.env.NEXT_PUBLIC_LAST_COMMIT_DATE ?? "local dev";
   const hash = "8f4e2b9a...c7135d"; // static sample per request
   const binary = "01001010 01100001 01110011 01110011 01110100 01100101 01101010";
   return (

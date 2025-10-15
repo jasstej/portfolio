@@ -30,6 +30,22 @@ export type Content = {
   }>;
 };
 
+// Semantic network mapping between nodes (skills/concepts/certifications) and projects.
+export type FlowLink = {
+  from: string; // e.g., "aws-cp", "terraform", "security"
+  to: string;   // project id e.g., "cipherlake"
+  weight?: number; // optional strength to render thicker/brighter edges
+  label?: string;  // optional semantic label for tooltips/edge captions
+};
+
+// Consistent coloring per node type for visual layers
+export const nodeColors = {
+  certificate: "#00b4ff",
+  project: "#00ff9d",
+  skill: "#ff005e",
+  philosophy: "#f5f5f5",
+};
+
 export const defaultContent: Content = {
   achievements: [
     {
@@ -65,3 +81,24 @@ export const defaultContent: Content = {
     { id: "firecore", name: "FireCore", desc: "Cloud firewall orchestration with GitOps.", stack: ["Terraform", "Ansible"], github: "#", demo: "#" },
   ],
 };
+
+// Semantic links that describe why nodes are connected (not just layout).
+// Only include ids that exist in the current content where applicable.
+export const flowLinks: FlowLink[] = [
+  // Certifications -> Projects
+  { from: "aws-cp", to: "cipherlake", weight: 2, label: "cloud-foundations" },
+  { from: "aws-cp", to: "firecore", weight: 1 },
+  { from: "rhcsa", to: "sentinel", weight: 1, label: "linux-admin" },
+
+  // Skills/Tools -> Projects (match against defaultContent.skills case-insensitively)
+  { from: "terraform", to: "firecore", weight: 2, label: "infra-as-code" },
+  { from: "python", to: "sentinel", weight: 2, label: "endpoint-agent" },
+  { from: "rust", to: "tracenet", weight: 2, label: "dpi-perf" },
+  { from: "aws", to: "cipherlake", weight: 2, label: "kms-s3" },
+
+  // Concepts / philosophy -> Projects
+  { from: "cloud", to: "cipherlake", weight: 1 },
+  { from: "security", to: "sentinel", weight: 1 },
+  { from: "automation", to: "firecore", weight: 1 },
+  { from: "research", to: "tracenet", weight: 1 },
+];

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
 import { ReactTyped } from "react-typed";
@@ -21,13 +21,26 @@ export default function Projects() {
     <section id="projects" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <h2 className="font-display text-3xl mb-6">Projects</h2>
+        <style>{`
+          @keyframes decryptReveal { 0% { filter: blur(3px) brightness(1.4); letter-spacing:2px; } 60% { filter: blur(1px); } 100% { filter:none; letter-spacing:0; } }
+          .decrypting:hover .enc { opacity:0; }
+          .decrypting .dec { opacity:0; pointer-events:none; }
+          .decrypting:hover .dec { opacity:1; animation: decryptReveal 0.9s steps(20,end) forwards; }
+          .cipherNoise { background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent); background-size:200% 100%; }
+        `}</style>
         <div className="grid sm:grid-cols-2 gap-4">
           {projects.map((p, i) => (
             <Dialog key={p.name} open={active === i} onOpenChange={(o) => { setActive(o ? i : null); try { sound.play("reverb"); } catch {} }}>
               <DialogTrigger asChild>
-                <Card className="glass tile p-4 cursor-pointer hover:border-[var(--neon-pink)]/40 border border-white/10">
-                  <div className="font-mono text-cyan-300">$ cat {p.name}.log</div>
-                  <div className="text-white/80">{p.desc}</div>
+                <Card className="glass decrypting relative tile p-4 cursor-pointer hover:border-[var(--neon-pink)]/40 border border-white/10 overflow-hidden">
+                  <div className="font-mono text-cyan-300 enc select-none">
+                    $ cat _{p.name.toLowerCase().replace(/[^a-z0-9]/g,'')}*.log
+                  </div>
+                  <div className="font-mono text-cyan-300 dec absolute inset-0 p-4 flex flex-col justify-start gap-1">
+                    <span>$ cat {p.name}.log</span>
+                    <span className="text-xs text-green-300/80">{p.desc}</span>
+                  </div>
+                  <div className="absolute inset-0 opacity-0 hover:opacity-40 transition cipherNoise" />
                 </Card>
               </DialogTrigger>
               <DialogContent className="glass">
